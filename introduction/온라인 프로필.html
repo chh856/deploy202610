@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<title>온라인 프로필</title>
+	<meta charset="utf-8">
+    <style>
+        body{
+            background-color: rgb(246, 245, 245);
+        }
+        #container{
+                width: 1150px;
+                margin : 20px 350px auto;
+            
+        }
+        aside{
+            width: 300px;
+            height: 800px;
+            background-color: slateblue;
+            float: left;
+            padding : 30px;
+            border: 2px solid slateblue;
+            box-sizing: border-box;
+            text-align: center;
+            border-top-left-radius: 3%;
+            border-bottom-left-radius: 3%;
+  
+       }
+
+        .radius{
+            width: 200px;
+            margin : 80px auto;
+            border-radius: 50%;
+
+            
+        }
+    
+        #main{
+            width: 700px;
+            height: 800px;
+            background-color: white;
+            float: left;
+            padding : 30px;
+            border: 2px solid white;
+            box-sizing: border-box;
+            border-top-Right-radius: 3%;
+            border-bottom-Right-radius: 3%;
+        }
+
+         table, tr, th, td {
+            border : 2px solid slateblue; /* 2픽셀 크기의 검은색 선(solid)*/
+            border-collapse: collapse; /* 겹치는 선 하나로 */
+            padding : 5px 40px; /* 상하 5px, 좌우 20px 여백*/
+            text-align: center; /*가운데 정렬 */
+        }
+        th{
+            background-color: beige;
+        }
+        aside div{
+            color: white;
+        }
+       .shadow{
+            box-shadow: 3px 3px 10px black;
+        }
+
+    </style>
+  
+</head>
+
+<body>
+    <div id="container">
+        <!-- 사이드바 -->
+        <aside class="shadow">
+            <div id="namecard">
+                <img src="RYAN_1.jpg" alt="" class="radius">
+                <h1>Gildong</h1>    
+                <p>프로그래밍 어려워</p>
+            </div>
+            <div id="detail">
+                <p>Korea</p>
+                <p>test@naver.com</p>                                 
+            </div>
+            <div id="sns">
+                <h2>SNS</h2>
+                <h3><a onclick = "funcClick()" href="#">클릭!</a></h3>
+            </div>           
+        </aside>
+        <div id="main" class="shadow"> 
+            <section>
+                <h2 class="subtitle">자기소개</h2>
+                <p><mark>프로그래밍</mark>에 관심이 많습니다. <br>현재 열심히 공부하며 코딩 중!</p>
+            </section>
+
+            <!-- 경력 -->
+            <section >
+                <h2 class="subtitle">Experience</h2>
+                <ul>
+                    <li>프론트엔드
+                        <ul>
+                            <li>HTML/CSS/JAVASCRIPT </li>
+                            <li>웹 페이지 못 만든다 </li>
+                            <li>다 못함</li> 
+                        </ul>
+                    </li>
+                    <li>백엔드
+                        <ul>
+                            <li>자바 못함 </li>
+                            <li>오라클 더 못함</li>
+                            <li>스프링 잘하고 싶음</li>
+                        </ul>                        
+                    </li>
+                </ul>             
+            </section>
+
+            <!-- 숙련도 -->
+            <section>
+                <h2 class="subtitle">보유 기술</h2>
+                <li style="list-style: none;"> 
+                    <ul>
+                        <li>자바 </li>
+                        <li>오라클</li>
+                        <li>한국사 자격증</li>
+                        <li>운전 면허 2종 보통</li>
+                    </ul>                        
+                </li>
+            </section>
+
+            <!-- 학력 -->
+            <section>
+                <h2 class="subtitle">Education</h2>
+                <table>
+                  <caption>학력 사항</caption>
+                  <thead>
+                      <tr>
+                          <th>출신학교</th>
+                          <th>전공</th>
+                          <th>기간</th>
+                          <th>구분</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>좋은대학교</td>
+                          <td>좋은학과</td>
+                          <td>2010.3 ~ 2013.2</td>
+                          <td>졸업</td>
+                      </tr>
+                      <tr>
+                          <td>꽤좋은고등학교</td>
+                          <td> - </td>
+                          <td>2007.3 ~ 2009.2</td>
+                          <td>졸업</td>
+                      </tr>
+                  </tbody>
+                </table>
+            </section>
+        </div>        
+    </div>
+</body>
+</html>
+<script>
+    function funcClick(){
+        alert("추후 추가 예정!!")
+    }
+</script>
