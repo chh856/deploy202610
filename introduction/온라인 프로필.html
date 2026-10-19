@@ -1,316 +1,177 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <title>온라인 프로필</title>
-
-    <style>
-        body {
-            background:
-                radial-gradient(circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(96, 142, 255, 0.28), transparent 80%),
-                linear-gradient(135deg, #E8EEFF, #DCE6FF, #F5F8FF);
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, "Malgun Gothic", sans-serif;
-        }
-
-        #container {
-            width: 800px;
-            margin: 30px auto;
-            background: white;
-            box-shadow: 0 12px 35px rgba(38, 55, 127, 0.18);
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-        }
-
-        #side {
-            width: 250px;
-            min-height: 800px;
-            background: linear-gradient(160deg, #4056BD, #26377F);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px 15px;
-            box-sizing: border-box;
-            flex-shrink: 0;
-        }
-
-        #namecard img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid white;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        #namecard img:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(38, 55, 127, 0.3);
-        }
-
-        #namecard h1 {
-            margin: 10px 0;
-        }
-
-        #namecard p {
-            font-size: 14px;
-        }
-
-        #detail {
-            margin-top: 40px;
-            font-size: 14px;
-            overflow-wrap: anywhere;
-        }
-
-        #sns {
-            margin-top: 40px;
-        }
-
-        #sns a {
-            display: inline-block;
-            background: white;
-            color: #3346A8;
-            padding: 8px 18px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        #sns a:hover {
-            background: #DCE6FF;
-            color: #26377F;
-            transform: translateY(-2px);
-        }
-
-     
-        #contents {
-            flex: 1;
-            min-width: 0;
-            min-height: 800px;
-            background: white;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-
-
-        .subtitle {
-            border-left: 5px solid #4056BD;
-            padding-left: 10px;
-            margin-bottom: 10px;
-        }
-
-     
-        section {
-            margin-bottom: 25px;
-            padding: 10px;
-            border-radius: 10px;
-            transition: transform 0.3s ease,box-shadow 0.3s ease,background-color 0.3s ease;
-        }
-
-        section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(51, 70, 168, 0.14);
-            background-color: #F7F9FF;
-        }
-
-        ul {
-            line-height: 1.8;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            border: 1px solid #D5DCF0;
-            padding: 8px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        thead {
-            background: #3346A8;
-            color: white;
-        }
-
-        caption {
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        mark {
-            background: #DCE6FF;
-            color: #26377F;
-            padding: 2px 4px;
-            border-radius: 6px;
-        }
-    
-        .ripple {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(96, 142, 255, 0.9);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 99999;
-            animation: rippleEffect 0.7s ease-out forwards;
-        }
-
-         /* 동그라미 물결주기*/
-        @keyframes rippleEffect {
-            from {
-                width: 20px;
-                height: 20px;
-                opacity: 1;
-            }
-
-            to {
-                width: 180px;
-                height: 180px;
-                opacity: 0;
-            }
-        }
-
-    
-    </style>
 </head>
+
 <body>
-    <div id="container">
+    <div id="app">
 
-        <!-- 사이드바 -->
-        <aside id="side">
-            <div id="namecard">
-                <img src="RYAN_1.jpg" alt="프로필 사진">
-                <h1>Gildong CHA</h1>
-                <p>프로그래밍 어려워</p>
+        <!-- 시작 화면과 프로필 화면의 페이드 전환 -->
+        <transition name="fade" mode="out-in">
+
+            <!-- 인트로 시작 화면 -->
+            <div v-if="!started" class="intro-screen" key="intro">
+                <div class="intro-card">
+                    <p class="intro-label">WELCOME TO MY PAGE</p>
+                    <h1>안녕하세요!</h1>
+                    <p class="intro-description">
+                        프로그래밍과 자동화 테스트를 공부하며<br>
+                        성장하고 있는 저를 소개합니다.
+                    </p>
+
+                    <button class="start-button" @click="startProfile">
+                        프로필 보러 가기
+                        <span>→</span>
+                    </button>
+                </div>
             </div>
 
-            <div id="detail">
-                <p>Korea</p>
-                <p>test@naver.com</p>
+            <!-- 기존 프로필 화면 -->
+            <div v-else id="container" key="profile">
+
+                <!-- 사이드바 -->
+                <aside id="side">
+                    <div class="namecard">
+                        <img src="RYAN_1.jpg" class="img-default"alt="프로필 사진">   
+                        <img src="RYAN_3.jpg" class="img-hover" alt="프로필 사진">
+                        <h1>CHA</h1>
+                        <p>프로그래밍 어려워</p>
+                    </div>
+
+                    <div id="detail">
+                        <p>Korea</p>
+                    </div>
+
+                    <div id="sns">
+                        <h2>SNS</h2>
+                        <a href="#" @click.prevent="funClick">클릭!</a>
+                    </div>
+
+                    <div>
+                        <div id="clock"></div>
+                    </div>
+                </aside>
+
+                <!-- 본문 -->
+                <main id="contents">
+
+                    <section>
+                        <h2 class="subtitle">자기소개</h2>
+                        <p>
+                            <mark>프로그래밍과 자동화 테스트</mark>에 관심이 많습니다.<br>
+                            현재 열심히 공부하며 코딩 중!
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="subtitle">Experience</h2>
+                        <ul>
+                            <li>프론트엔드
+                                <ul>
+                                    <li>Html/css/JavaScript</li>
+                                    <li>Vue.js</li>
+                                </ul>
+                            </li>
+                            <li>백엔드
+                                <ul>
+                                    <li>JAVA</li>
+                                    <li>Oracle</li>
+                                    <li>Spring</li>
+                                </ul>
+                            </li>
+                            <li>소프트웨어 테스팅
+                                <ul>
+                                    <li>selenium</li>
+                                    <li>Jira</li>
+                                    <li>RedMine</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="subtitle">보유 기술</h2>
+                            <ul class="cert-list">
+                                <li>
+                                    <span class="material-symbols-outlined">code</span>
+                                    <span>Java</span>
+                                </li>
+
+                                <li>
+                                    <span class="material-symbols-outlined">database</span>
+                                    <span>Oracle</span>
+                                </li>
+
+                                <li>
+                                    <span class="material-symbols-outlined">menu_book</span>
+                                    <span>한국사능력검정시험</span>
+                                </li>
+
+                                <li>
+                                    <span class="material-symbols-outlined">directions_car</span>
+                                    <span>운전면허 2종 보통</span>
+                                </li>
+
+                                <li>
+                                <span class="material-symbols-outlined">fact_check</span>
+                                <span>CSTS</span>
+                                </li>
+                            </ul>
+                    </section>
+
+                    <section>
+                        <h2 class="subtitle">Education</h2>
+
+                        <table>
+                            <caption>학력 사항</caption>
+                            <thead>
+                                <tr>
+                                    <th>출신학교</th>
+                                    <th>전공</th>
+                                    <th>기간</th>
+                                    <th>구분</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>자바대학교</td>
+                                    <td>좋은학과</td>
+                                    <td>2010.3 ~ 2013.2</td>
+                                    <td>졸업</td>
+                                </tr>
+                                <tr>
+                                    <td>html고등학교</td>
+                                    <td>-</td>
+                                    <td>2007.3 ~ 2009.2</td>
+                                    <td>졸업</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                </main>
             </div>
-
-            <div id="sns">
-                <h2>SNS</h2>
-                <a href="#" onclick="funcClick()">클릭!</a>
-            </div>
-        </aside>
-
-        <!-- 본문 -->
-        <main id="contents">
-
-            <!-- 자기소개 -->
-            <section>
-                <h2 class="subtitle">자기소개</h2>
-                <p>
-                    <mark>프로그래밍</mark>에 관심이 많습니다.<br>
-                    현재 열심히 공부하며 코딩 중!
-                </p>
-            </section>
-
-            <!-- 경력 -->
-            <section>
-                <h2 class="subtitle">Experience</h2>
-                <ul>
-                    <li>프론트엔드
-                        <ul>
-                            <li>HTML/CSS/JAVASCRIPT</li>
-                            <li>vue.js</li>
-                        </ul>
-                    </li>
-                    <li>백엔드
-                        <ul>
-                            <li>자바</li>
-                            <li>오라클</li>
-                            <li>스프링</li>
-                        </ul>
-                    </li>
-                    <li>소프트웨어 테스팅 자동화
-                        <ul>
-                            <li>셀레니움</li>
-                        </ul>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 보유 기술 -->
-            <section>
-                <h2 class="subtitle">보유 기술</h2>
-                <ul>
-                    <li>자바</li>
-                    <li>오라클</li>
-                    <li>한국사 자격증</li>
-                    <li>운전 면허 2종 보통</li>
-                    <li>CSTS</li>
-                </ul>
-            </section>
-
-            <!-- 학력 -->
-            <section>
-                <h2 class="subtitle">Education</h2>
-
-                <table>
-                    <caption>학력 사항</caption>
-
-                    <thead>
-                        <tr>
-                            <th>출신학교</th>
-                            <th>전공</th>
-                            <th>기간</th>
-                            <th>구분</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>자바대학교</td>
-                            <td>좋은학과</td>
-                            <td>2010.3 ~ 2013.2</td>
-                            <td>졸업</td>
-                        </tr>
-                        <tr>
-                            <td>html고등학교</td>
-                            <td>-</td>
-                            <td>2007.3 ~ 2009.2</td>
-                            <td>졸업</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-        </main>
+        </transition>
     </div>
 
-    <script>
-
-        document.addEventListener("mousemove", function (event) {
-            document.body.style.setProperty(
-                "--mouse-x",
-                event.clientX + "px"
-            ); // 배경혀과 주기 
-
-            document.body.style.setProperty(
-                "--mouse-y",
-                event.clientY + "px"
-            );
+<script>
+   
+        document.addEventListener("mousemove", function(event) {
+            document.body.style.setProperty("--mouse-x", event.clientX + "px");
+            document.body.style.setProperty("--mouse-y", event.clientY + "px");
         });
 
-        document.addEventListener("click", function (event) {
-            const ripple = document.createElement("span");
+        document.addEventListener("click", function(event) {
+            let ripple = document.createElement("span");
 
             ripple.classList.add("ripple");
             ripple.style.left = event.clientX + "px";
@@ -318,12 +179,61 @@
 
             document.body.appendChild(ripple);
 
-            ripple.addEventListener("animationend", function () {
+            ripple.addEventListener("animationend", function() {
                 ripple.remove();
-            }, { once: true }); // 동그라미 물결 효과 
+            }, { once: true });
         });
 
-        function funcClick() {
-            alert("추후 추가 예정!!");
-        }
- </script>
+        let app = Vue.createApp({
+            data: function() {
+                return {
+                    started: false
+                };
+            },
+
+            methods: {
+                startProfile: function() {
+                    let self = this;
+                    self.started = true;
+                },
+
+                funClick: function() {
+                    alert("추후 추가 예정!!");
+                }
+            },
+
+            mounted () { 
+                let self =this;
+                let updateClock = function() {
+                    let obj = document.querySelector("#clock");
+
+                    if (!obj) return;
+
+                    let datetime = new Date();
+                    let hour = String(datetime.getHours()).padStart(2, "0");
+                    let minutes = String(datetime.getMinutes()).padStart(2, "0");
+                    let seconds = String(datetime.getSeconds()).padStart(2, "0");
+
+                    obj.innerHTML = hour + " : " + minutes + " : " + seconds;
+                };
+
+                updateClock();
+
+                self.$watch("started", function(value) {
+                    if (value) {
+                        this.$nextTick(updateClock);
+                    }
+                }.bind(self));
+
+                self.clockTimer = setInterval(updateClock, 100);
+            },
+
+            beforeUnmount: function() {
+                clearInterval(this.clockTimer);
+            }
+        });
+
+        app.mount("#app");
+</script>
+</body>
+</html>
